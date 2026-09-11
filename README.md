@@ -35,6 +35,12 @@ The main deliverable is an interactive browser dashboard inspired by a professio
 
 All six requirements are implemented in the dataset, scripts, model outputs, alert queue, and interactive dashboard.
 
+## Dashboard Preview
+
+<p align="center">
+  <img src="outputs/dashboard-screenshot.png" alt="Fraud Detection in Applications - Task 4 Dashboard" width="100%">
+</p>
+
 ## Business Questions
 
 The analysis is designed to answer practical questions such as:
