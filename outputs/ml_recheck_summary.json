@@ -1,0 +1,49 @@
+{
+  "rows": 720,
+  "training_features": [
+    "duplicate_email_count",
+    "duplicate_phone_count",
+    "duplicate_cv_count",
+    "device_reuse_count",
+    "ip_reuse_count",
+    "device_applications_24h",
+    "ip_applications_24h",
+    "minutes_since_device_submission",
+    "minutes_since_ip_submission",
+    "form_completion_seconds",
+    "cover_letter_chars",
+    "inconsistency_count",
+    "skills_count",
+    "portfolio_url_present",
+    "github_url_present",
+    "availability_hours_week"
+  ],
+  "synthetic_reference_used_in_training": false,
+  "isolation_forest": {
+    "trees": 350,
+    "contamination": 0.11,
+    "flag_count": 80,
+    "stored_flag_match_rate": 1.0
+  },
+  "kmeans": {
+    "clusters": 4,
+    "rerun_cluster_sizes": [
+      17,
+      20,
+      80,
+      603
+    ],
+    "stored_cluster_sizes": [
+      17,
+      20,
+      80,
+      603
+    ]
+  },
+  "combined_queue_validation": {
+    "precision": 0.6581,
+    "recall": 0.9625,
+    "f1": 0.7817
+  },
+  "responsible_use": "Anomaly scores and alerts prioritize human review; they are not proof of fraud."
+}

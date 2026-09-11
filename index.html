@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Internee.pk Task 4 major project: fraud detection in internship applications using Isolation Forest, K-Means clustering and interactive anomaly monitoring." />
+  <meta name="author" content="Sajid Ali" />
+  <title>Fraud Detection in Applications | Task 4 - Internee.pk</title>
+  <link rel="icon" href="assets/internshield-mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <img src="assets/internshield-mark.svg" alt="InternShield" />
+        <div><strong>InternShield</strong><span>Fair internships. Real talent.</span></div>
+      </div>
+
+      <nav class="nav-list" aria-label="Main navigation">
+        <button class="nav-btn active" data-tab="dashboard"><span class="nav-icon">▦</span>Dashboard</button>
+        <button class="nav-btn" data-tab="applications"><span class="nav-icon">▤</span>Applications</button>
+        <button class="nav-btn" data-tab="alerts"><span class="nav-icon">△</span>Alerts <b id="alertBadge" class="nav-badge">0</b></button>
+        <button class="nav-btn" data-tab="models"><span class="nav-icon">◉</span>Model Analytics</button>
+        <button class="nav-btn" data-tab="reports"><span class="nav-icon">▥</span>Reports</button>
+      </nav>
+
+      <div class="mission-card">
+        <div class="leaf-orb">✓</div>
+        <span>Together for</span>
+        <strong>Trustworthy Opportunities</strong>
+        <small>Detect. Review. Protect.</small>
+      </div>
+      <div class="sidebar-footer">Task 4 · Internee.pk<br><b>Sajid Ali</b> · Data Analyst Intern</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation">☰</button>
+        <div class="page-title">
+          <span class="title-icon">≡</span>
+          <div><h1>Fraud Detection in Applications</h1><p>Machine-learning anomaly detection for a fair and transparent internship process</p></div>
+        </div>
+        <div class="top-tools">
+          <label class="global-search"><span>⌕</span><input id="globalSearch" type="search" placeholder="Search application, email, name..." /></label>
+          <button id="themeToggle" class="round-btn" title="Switch day/night view" aria-label="Switch day/night view"><span id="themeIcon">☾</span></button>
+          <div class="user-pill"><div class="avatar">SA</div><div><b>Sajid Ali</b><span>Data Analyst Intern</span></div></div>
+        </div>
+      </header>
+
+      <section class="filter-strip" aria-label="Dashboard filters">
+        <label><span>Date from</span><input id="fromDate" type="date" /></label>
+        <label><span>Date to</span><input id="toDate" type="date" /></label>
+        <label><span>Department</span><select id="departmentFilter"><option value="">All Departments</option></select></label>
+        <label><span>City</span><select id="cityFilter"><option value="">All Cities</option></select></label>
+        <label><span>Alert Type</span><select id="alertFilter"><option value="">All Alert Types</option><option>Critical</option><option>High</option><option>Review</option><option>Normal</option></select></label>
+        <label><span>Model</span><select id="modelFilter"><option value="combined">Combined Risk</option><option value="isolation">Isolation Forest Flagged</option><option value="kmeans">K-Means High-Risk Cluster</option></select></label>
+        <div class="filter-buttons">
+          <button id="applyFilters" class="btn primary">Apply Filters</button>
+          <button id="resetFilters" class="btn ghost">Reset Filters</button>
+        </div>
+        <div class="export-buttons">
+          <button id="downloadCsv" class="btn ghost">⇩ Download CSV</button>
+          <button id="printReport" class="btn ghost">▣ Print / Export</button>
+        </div>
+      </section>
+
+      <div id="filterSummary" class="scope-line"></div>
+      <section id="emptyState" class="empty-state" hidden>
+        <div>∅</div><h2>No applications match the selected filters</h2><p>Change the date, department, city, alert type, model, or search term.</p><button id="emptyReset" class="btn primary">Reset Filters</button>
+      </section>
+
+      <section id="dashboard" class="tab-panel active">
+        <div id="kpiGrid" class="kpi-grid"></div>
+
+        <div class="dashboard-grid">
+          <article class="panel trend-panel">
+            <div class="panel-head"><div><span class="eyebrow">TIME TREND</span><h2>Anomaly Trend Over Time</h2></div><div class="legend"><span><i class="dot teal"></i>Total Applications</span><span><i class="dot amber"></i>Suspicious</span></div></div>
+            <div id="trendChart" class="chart"></div>
+          </article>
+
+          <article class="panel dept-panel">
+            <div class="panel-head"><div><span class="eyebrow">COMPARISON</span><h2>Suspicious Cases by Department</h2></div></div>
+            <div id="departmentChart" class="chart"></div>
+          </article>
+
+          <article class="panel donut-panel">
+            <div class="panel-head"><div><span class="eyebrow">COMPOSITION</span><h2>Alert Composition</h2></div></div>
+            <div id="signalDonut" class="chart"></div>
+          </article>
+
+          <article class="panel city-panel">
+            <div class="panel-head"><div><span class="eyebrow">RANKING</span><h2>Top Risky Cities</h2></div></div>
+            <div id="cityChart" class="chart"></div>
+          </article>
+
+          <article class="panel scatter-panel">
+            <div class="panel-head"><div><span class="eyebrow">BEHAVIOR ANALYSIS</span><h2>Submission Speed vs Anomaly Score</h2></div><div class="legend"><span><i class="dot teal"></i>Normal</span><span><i class="dot amber"></i>Suspicious</span><span><i class="dot red"></i>High Risk</span></div></div>
+            <div id="scatterChart" class="chart"></div>
+          </article>
+
+          <article class="panel heat-panel">
+            <div class="panel-head"><div><span class="eyebrow">PATTERN MATRIX</span><h2>Duplicate Email / Phone / IP Patterns</h2></div></div>
+            <div id="heatmapChart" class="chart"></div>
+          </article>
+        </div>
+
+        <div class="bottom-grid">
+          <article class="panel table-panel">
+            <div class="panel-head"><div><span class="eyebrow">REVIEW QUEUE</span><h2>Recent Suspicious Applications</h2></div><button class="text-btn" data-tab-jump="alerts">View All →</button></div>
+            <div id="recentTable" class="table-wrap"></div>
+          </article>
+          <article class="panel insights-panel">
+            <div class="panel-head"><div><span class="eyebrow">DECISION SUPPORT</span><h2>Insights & Recommendations</h2></div><button class="text-btn" data-tab-jump="reports">View Report →</button></div>
+            <div id="insightsList" class="insights-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="applications" class="tab-panel">
+        <div class="section-top"><div><span class="eyebrow">AUDITABLE DATA</span><h2>Application Records</h2><p>Search and review the filtered internship application dataset.</p></div><div class="sort-box"><label>Sort by <select id="sortField"><option value="risk_score">Risk Score</option><option value="submitted_at">Submission Time</option><option value="application_id">Application ID</option><option value="department">Department</option><option value="isolation_anomaly_percentile">Isolation Percentile</option></select></label><button id="sortDirection" class="btn ghost" data-dir="desc">Descending ↓</button></div></div>
+        <div id="recordsTable" class="table-wrap full-table"></div>
+        <div class="pagination"><button id="prevPage" class="btn ghost">Previous</button><span id="pageStatus"></span><button id="nextPage" class="btn ghost">Next</button></div>
+      </section>
+
+      <section id="alerts" class="tab-panel">
+        <div class="section-top"><div><span class="eyebrow">SUSPICIOUS BEHAVIOR ALERTS</span><h2>Fraud Review Alerts</h2><p>Alerts combine explainable rules with Isolation Forest and K-Means signals. A flag is for review, not automatic rejection.</p></div></div>
+        <div id="alertStats" class="mini-grid"></div>
+        <div id="alertsTable" class="table-wrap full-table"></div>
+      </section>
+
+      <section id="models" class="tab-panel">
+        <div class="section-top"><div><span class="eyebrow">MACHINE LEARNING</span><h2>Isolation Forest & K-Means Analytics</h2><p>The synthetic reference label is excluded from model training and is used only to validate the portfolio experiment.</p></div></div>
+        <div id="modelMetrics" class="model-metric-grid"></div>
+        <div class="model-grid">
+          <article class="panel"><div class="panel-head"><div><span class="eyebrow">ISOLATION FOREST</span><h2>Anomaly Percentile Distribution</h2></div></div><div id="isoHistogram" class="chart"></div></article>
+          <article class="panel"><div class="panel-head"><div><span class="eyebrow">K-MEANS</span><h2>Cluster Risk Profiles</h2></div></div><div id="clusterChart" class="chart"></div></article>
+        </div>
+        <div class="method-cards">
+          <article><b>01</b><h3>Duplicate Detection</h3><p>Repeated email, phone and CV fingerprints identify possible duplicate entries.</p></article>
+          <article><b>02</b><h3>Rapid Submission Detection</h3><p>Very fast form completion, short submission gaps and device/IP bursts identify automated or abnormal activity.</p></article>
+          <article><b>03</b><h3>Consistency Checks</h3><p>CGPA, semester, graduation year, availability and form behavior are checked for contradictions.</p></article>
+          <article><b>04</b><h3>Unsupervised ML</h3><p>Isolation Forest scores unusual multivariate behavior while K-Means groups recurring behavior patterns.</p></article>
+        </div>
+      </section>
+
+      <section id="reports" class="tab-panel">
+        <div class="section-top"><div><span class="eyebrow">MANAGEMENT REPORT</span><h2>Task 4 Analysis Summary</h2><p>A concise decision-ready summary of the current filtered scope.</p></div><button id="reportPrint" class="btn primary">Print / Save as PDF</button></div>
+        <div id="reportCards" class="report-cards"></div>
+        <article class="panel report-narrative"><div class="panel-head"><div><span class="eyebrow">TASK COVERAGE</span><h2>Guideline Compliance</h2></div></div><div class="coverage-grid"><div>✓ Duplicate entry pattern analysis</div><div>✓ Rapid submission / burst analysis</div><div>✓ Inconsistent data analysis</div><div>✓ Isolation Forest anomaly detection</div><div>✓ K-Means clustering</div><div>✓ Suspicious behavior alerting</div><div>✓ Interactive filters & KPI recalculation</div><div>✓ CSV export & printable report</div></div></article>
+      </section>
+
+      <footer>InternShield · Fraud Detection in Applications · Task 4 Internee.pk · Prepared by Sajid Ali <span>v1.0 · Local-first dashboard</span></footer>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="modal" class="modal" hidden><div class="modal-backdrop" data-close-modal></div><div class="modal-card"><button class="modal-close" data-close-modal>×</button><div id="modalBody"></div></div></div>
+
+  <script src="src/data.js"></script>
+  <script src="src/app.js"></script>
+</body>
+</html>

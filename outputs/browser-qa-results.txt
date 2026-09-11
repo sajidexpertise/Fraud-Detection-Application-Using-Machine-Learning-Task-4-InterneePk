@@ -1,0 +1,25 @@
+PASS | No JavaScript page errors
+PASS | Default dark theme
+PASS | All 720 records loaded | 720
+PASS | Six KPI cards | 6
+PASS | Six main dashboard charts render | 6
+PASS | Department filter works | 178
+PASS | KPI values update | 178
+PASS | Reset restores 720 records
+PASS | Isolation Forest filter works | 80
+PASS | Global search works | 1
+PASS | Day view works
+PASS | Night view works
+PASS | Applications navigation works
+PASS | Application rows render | 24
+PASS | Sorting works | Ascending ↑
+PASS | Alerts navigation works
+PASS | Review modal opens
+PASS | Review modal closes
+PASS | Model Analytics navigation works
+PASS | Model charts render | 2
+PASS | Reports navigation works
+PASS | CSV download works | task4_filtered_applications.csv
+PASS | Mobile has no page-level horizontal overflow | 390/390
+PASS | Mobile menu visible
+PASS | Mobile sidebar opens

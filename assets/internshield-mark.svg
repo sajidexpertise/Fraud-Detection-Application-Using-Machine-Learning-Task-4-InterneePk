@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="InternShield mark">
+  <path d="M32 4 54 12v16c0 14-8.5 25.2-22 32C18.5 53.2 10 42 10 28V12L32 4Z" fill="#10d9b1" opacity=".15" stroke="#10d9b1" stroke-width="3"/>
+  <path d="M32 13 44 18v10c0 8.4-4.4 15.3-12 20-7.6-4.7-12-11.6-12-20V18l12-5Z" fill="none" stroke="#10d9b1" stroke-width="3"/>
+  <path d="m25 30 5 5 10-12" fill="none" stroke="#ffb84d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,46 @@
+field,data_type,analytical_role,description
+application_id,Text,Identifier,Unique synthetic application identifier.
+submitted_at,DateTime,Raw input,Application submission timestamp.
+applicant_name,Text,Synthetic input,Synthetic applicant name used for realistic portfolio presentation.
+email,Text,Synthetic input,Synthetic email address; reused values can indicate duplicate entry patterns.
+phone,Text,Synthetic input,Synthetic phone number; repeated values can indicate identity reuse.
+device_id,Text,Behavioral input,Synthetic browser/device identifier used to detect repeated or rapid submissions.
+ip_hash,Text,Behavioral input,Hashed synthetic network identifier; no real IP addresses are stored.
+cv_hash,Text,Behavioral input,Synthetic fingerprint representing an uploaded CV file.
+department,Category,Filter/context,Internship track selected by the applicant.
+university,Category,Filter/context,Synthetic university name.
+degree,Category,Input/context,Applicant degree program.
+semester,Integer,Consistency input,Current semester number.
+graduation_year,Integer,Consistency input,Declared expected graduation year.
+city,Category,Filter/context,Declared city.
+cgpa,Decimal,Consistency input,Declared CGPA.
+cgpa_scale,Decimal,Consistency input,"Declared CGPA scale, set to 4.0 in the portfolio dataset."
+form_completion_seconds,Integer,ML feature,Time taken to complete the application form.
+cover_letter_chars,Integer,ML feature,Character count of the application cover-letter response.
+skills_count,Integer,ML feature,Number of declared skills.
+portfolio_url_present,Binary,ML feature,"1 if a portfolio URL is present, otherwise 0."
+github_url_present,Binary,ML feature,"1 if a GitHub URL is present, otherwise 0."
+availability_hours_week,Integer,Consistency/ML feature,Declared weekly internship availability.
+synthetic_reference_label,Category,Validation only,Planted synthetic scenario label used only for post-fit validation; excluded from model training.
+duplicate_email_count,Integer,Derived/ML feature,Number of applications sharing the same email.
+duplicate_phone_count,Integer,Derived/ML feature,Number of applications sharing the same phone number.
+device_reuse_count,Integer,Derived/ML feature,Total applications associated with the same device identifier.
+ip_reuse_count,Integer,Derived/ML feature,Total applications associated with the same hashed network identifier.
+duplicate_cv_count,Integer,Derived/ML feature,Number of applications sharing the same CV fingerprint.
+minutes_since_device_submission,Decimal,Derived/ML feature,Minutes since the previous submission from the same device.
+minutes_since_ip_submission,Decimal,Derived/ML feature,Minutes since the previous submission from the same hashed network identifier.
+device_applications_24h,Integer,Derived/ML feature,"Rolling number of applications from the same device within 24 hours, including current row."
+ip_applications_24h,Integer,Derived/ML feature,"Rolling number of applications from the same hashed network identifier within 24 hours, including current row."
+duplicate_signal,Binary,Rule signal,"1 when duplicate email, phone or CV reuse is detected."
+rapid_submission_signal,Binary,Rule signal,"1 when rapid gaps, burst activity or unusually fast form completion is detected."
+inconsistency_count,Integer,Rule signal,Count of predefined consistency-rule mismatches.
+inconsistent_data_signal,Binary,Rule signal,1 when at least one data-consistency rule is triggered.
+isolation_flag,Binary,Model output,Isolation Forest anomaly flag.
+isolation_anomaly_percentile,Decimal,Model output,Relative anomaly intensity percentile; higher means more unusual.
+isolation_decision_score,Decimal,Model output,Raw Isolation Forest decision function; lower is more anomalous.
+kmeans_cluster,Integer,Model output,K-Means behavior cluster ID from 0 to 3.
+cluster_risk_index,Decimal,Derived model interpretation,Normalized behavioral-risk index of the assigned cluster.
+cluster_profile,Category,Model interpretation,Human-readable summary of the dominant behavior pattern in the cluster.
+risk_score,Decimal,Decision-support output,0-100 blended review score combining model and behavior signals.
+alert_level,Category,Decision-support output,"Normal, Review, High or Critical priority for human review."
+alert_reason,Text,Decision-support output,Plain-language explanation of the signals that caused the alert.

@@ -1,0 +1,64 @@
+{
+  "project": "Fraud Detection in Internship Applications",
+  "algorithms": [
+    "Isolation Forest",
+    "K-Means Clustering"
+  ],
+  "random_seed": 42,
+  "isolation_forest": {
+    "n_estimators": 350,
+    "contamination": 0.11,
+    "feature_count": 16
+  },
+  "kmeans": {
+    "n_clusters": 4,
+    "n_init": 25,
+    "inertia": 5938.624
+  },
+  "validation": {
+    "rows": 720,
+    "synthetic_truth_anomalies": 80,
+    "isolation_forest_flagged": 80,
+    "review_or_higher": 121,
+    "high_or_critical": 117,
+    "precision_high_or_critical_vs_synthetic_reference": 0.6581,
+    "recall_high_or_critical_vs_synthetic_reference": 0.9625,
+    "f1_high_or_critical_vs_synthetic_reference": 0.7817,
+    "confusion_matrix": [
+      [
+        600,
+        40
+      ],
+      [
+        3,
+        77
+      ]
+    ],
+    "cluster_profiles": {
+      "0": "Data inconsistency pattern",
+      "1": "Typical pattern",
+      "2": "Rapid submission pattern",
+      "3": "Identity reuse pattern"
+    },
+    "feature_columns": [
+      "duplicate_email_count",
+      "duplicate_phone_count",
+      "duplicate_cv_count",
+      "device_reuse_count",
+      "ip_reuse_count",
+      "device_applications_24h",
+      "ip_applications_24h",
+      "minutes_since_device_submission",
+      "minutes_since_ip_submission",
+      "form_completion_seconds",
+      "cover_letter_chars",
+      "inconsistency_count",
+      "skills_count",
+      "portfolio_url_present",
+      "github_url_present",
+      "availability_hours_week"
+    ],
+    "note": "Synthetic reference labels are used only for portfolio validation and are excluded from unsupervised model fitting."
+  },
+  "responsible_use": "Scores prioritize applications for human review. They are not proof of fraud and must not be used for automatic rejection."
+}
