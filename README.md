@@ -14,6 +14,12 @@ The main deliverable is an interactive browser dashboard inspired by a professio
 
 > **Responsible-use note:** A suspicious score or model flag is not proof of fraud. The dashboard is designed to prioritize manual review, not to automatically reject applicants.
 
+## Live Project
+
+- **Live Dashboard:** [Open the interactive dashboard](https://sajidexpertise.github.io/Fraud-Detection-Application-Using-Machine-Learning-Task-4-InterneePk/)
+- **Portfolio:** [sajidexpertise.vercel.app](https://sajidexpertise.vercel.app/)
+- **LinkedIn:** [linkedin.com/in/sajidexpertise](https://www.linkedin.com/in/sajidexpertise)
+
 ## Task 4 Objective
 
 > Identify anomalies in internship applications to prevent fake entries.
